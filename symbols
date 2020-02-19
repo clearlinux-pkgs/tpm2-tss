@@ -598,6 +598,8 @@ libtss2-mu.so.0:Tss2_MU_TPMU_ATTEST_Marshal
 libtss2-mu.so.0:Tss2_MU_TPMU_ATTEST_Unmarshal
 libtss2-mu.so.0:Tss2_MU_TPMU_CAPABILITIES_Marshal
 libtss2-mu.so.0:Tss2_MU_TPMU_CAPABILITIES_Unmarshal
+libtss2-mu.so.0:Tss2_MU_TPMU_ENCRYPTED_SECRET_Marshal
+libtss2-mu.so.0:Tss2_MU_TPMU_ENCRYPTED_SECRET_Unmarshal
 libtss2-mu.so.0:Tss2_MU_TPMU_HA_Marshal
 libtss2-mu.so.0:Tss2_MU_TPMU_HA_Unmarshal
 libtss2-mu.so.0:Tss2_MU_TPMU_KDF_SCHEME_Marshal

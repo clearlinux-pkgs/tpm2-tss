@@ -1,3 +1,4 @@
 Configure miss: whether to enable debugging
 Configure miss: dld_link in -ldld
+Configure miss: Valgrind tool sgcheck
 Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS

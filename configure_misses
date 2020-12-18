@@ -1,4 +1,5 @@
 Configure miss: whether to enable debugging
+Configure miss: g++ option to enable C++11 features
 Configure miss: dld_link in -ldld
 Configure miss: Valgrind tool sgcheck
 Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS

@@ -4,7 +4,7 @@
 #
 Name     : tpm2-tss
 Version  : 3.0.3
-Release  : 11
+Release  : 12
 URL      : https://github.com/tpm2-software/tpm2-tss/archive/3.0.3/tpm2-tss-3.0.3.tar.gz
 Source0  : https://github.com/tpm2-software/tpm2-tss/archive/3.0.3/tpm2-tss-3.0.3.tar.gz
 Summary  : Library to simplify management of TCTIs.
@@ -15,15 +15,23 @@ Requires: tpm2-tss-lib = %{version}-%{release}
 Requires: tpm2-tss-license = %{version}-%{release}
 Requires: tpm2-tss-man = %{version}-%{release}
 BuildRequires : autoconf-archive-dev
+BuildRequires : automake
+BuildRequires : automake-dev
 BuildRequires : doxygen
+BuildRequires : gettext-bin
 BuildRequires : libgcrypt-dev
 BuildRequires : libgpg-error-dev
+BuildRequires : libtool
+BuildRequires : libtool-dev
+BuildRequires : m4
 BuildRequires : perl
+BuildRequires : pkg-config-dev
 BuildRequires : pkgconfig(cmocka)
 BuildRequires : pkgconfig(json-c)
 BuildRequires : pkgconfig(libcrypto)
 BuildRequires : pkgconfig(libcurl)
 BuildRequires : valgrind
+Patch1: 0001-configure.ac-fix-compatibility-with-autoconf-2.70.patch
 
 %description
 [![Linux Build Status](https://travis-ci.org/tpm2-software/tpm2-tss.svg?branch=master)](https://travis-ci.org/tpm2-software/tpm2-tss)
@@ -85,6 +93,7 @@ man components for the tpm2-tss package.
 %prep
 %setup -q -n tpm2-tss-3.0.3
 cd %{_builddir}/tpm2-tss-3.0.3
+%patch1 -p1
 
 %build
 ## build_prepend content
@@ -94,7 +103,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1606323634
+export SOURCE_DATE_EPOCH=1608258289
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -114,7 +123,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1606323634
+export SOURCE_DATE_EPOCH=1608258289
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/tpm2-tss
 cp %{_builddir}/tpm2-tss-3.0.3/LICENSE %{buildroot}/usr/share/package-licenses/tpm2-tss/af62924ad3089277c413ea767486f404ac159ce1

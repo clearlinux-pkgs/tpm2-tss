@@ -1,3 +1,6 @@
+libtss2-esys.so.0:Esys_ACT_SetTimeout
+libtss2-esys.so.0:Esys_ACT_SetTimeout_Async
+libtss2-esys.so.0:Esys_ACT_SetTimeout_Finish
 libtss2-esys.so.0:Esys_ActivateCredential
 libtss2-esys.so.0:Esys_ActivateCredential_Async
 libtss2-esys.so.0:Esys_ActivateCredential_Finish
@@ -5,6 +8,9 @@ libtss2-esys.so.0:Esys_Certify
 libtss2-esys.so.0:Esys_CertifyCreation
 libtss2-esys.so.0:Esys_CertifyCreation_Async
 libtss2-esys.so.0:Esys_CertifyCreation_Finish
+libtss2-esys.so.0:Esys_CertifyX509
+libtss2-esys.so.0:Esys_CertifyX509_Async
+libtss2-esys.so.0:Esys_CertifyX509_Finish
 libtss2-esys.so.0:Esys_Certify_Async
 libtss2-esys.so.0:Esys_Certify_Finish
 libtss2-esys.so.0:Esys_ChangeEPS
@@ -575,6 +581,8 @@ libtss2-mu.so.0:Tss2_MU_TPMA_STARTUP_CLEAR_Marshal
 libtss2-mu.so.0:Tss2_MU_TPMA_STARTUP_CLEAR_Unmarshal
 libtss2-mu.so.0:Tss2_MU_TPMI_ALG_HASH_Marshal
 libtss2-mu.so.0:Tss2_MU_TPMI_ALG_HASH_Unmarshal
+libtss2-mu.so.0:Tss2_MU_TPML_ACT_DATA_Marshal
+libtss2-mu.so.0:Tss2_MU_TPML_ACT_DATA_Unmarshal
 libtss2-mu.so.0:Tss2_MU_TPML_AC_CAPABILITIES_Marshal
 libtss2-mu.so.0:Tss2_MU_TPML_AC_CAPABILITIES_Unmarshal
 libtss2-mu.so.0:Tss2_MU_TPML_ALG_Marshal
@@ -599,8 +607,12 @@ libtss2-mu.so.0:Tss2_MU_TPML_PCR_SELECTION_Marshal
 libtss2-mu.so.0:Tss2_MU_TPML_PCR_SELECTION_Unmarshal
 libtss2-mu.so.0:Tss2_MU_TPML_TAGGED_PCR_PROPERTY_Marshal
 libtss2-mu.so.0:Tss2_MU_TPML_TAGGED_PCR_PROPERTY_Unmarshal
+libtss2-mu.so.0:Tss2_MU_TPML_TAGGED_POLICY_Marshal
+libtss2-mu.so.0:Tss2_MU_TPML_TAGGED_POLICY_Unmarshal
 libtss2-mu.so.0:Tss2_MU_TPML_TAGGED_TPM_PROPERTY_Marshal
 libtss2-mu.so.0:Tss2_MU_TPML_TAGGED_TPM_PROPERTY_Unmarshal
+libtss2-mu.so.0:Tss2_MU_TPMS_ACT_DATA_Marshal
+libtss2-mu.so.0:Tss2_MU_TPMS_ACT_DATA_Unmarshal
 libtss2-mu.so.0:Tss2_MU_TPMS_AC_OUTPUT_Marshal
 libtss2-mu.so.0:Tss2_MU_TPMS_AC_OUTPUT_Unmarshal
 libtss2-mu.so.0:Tss2_MU_TPMS_ALGORITHM_DESCRIPTION_Marshal
@@ -643,6 +655,8 @@ libtss2-mu.so.0:Tss2_MU_TPMS_KEYEDHASH_PARMS_Marshal
 libtss2-mu.so.0:Tss2_MU_TPMS_KEYEDHASH_PARMS_Unmarshal
 libtss2-mu.so.0:Tss2_MU_TPMS_NV_CERTIFY_INFO_Marshal
 libtss2-mu.so.0:Tss2_MU_TPMS_NV_CERTIFY_INFO_Unmarshal
+libtss2-mu.so.0:Tss2_MU_TPMS_NV_DIGEST_CERTIFY_INFO_Marshal
+libtss2-mu.so.0:Tss2_MU_TPMS_NV_DIGEST_CERTIFY_INFO_Unmarshal
 libtss2-mu.so.0:Tss2_MU_TPMS_NV_PIN_COUNTER_PARAMETERS_Marshal
 libtss2-mu.so.0:Tss2_MU_TPMS_NV_PIN_COUNTER_PARAMETERS_Unmarshal
 libtss2-mu.so.0:Tss2_MU_TPMS_NV_PUBLIC_Marshal
@@ -757,6 +771,9 @@ libtss2-mu.so.0:Tss2_MU_UINT8_Marshal
 libtss2-mu.so.0:Tss2_MU_UINT8_Unmarshal
 libtss2-rc.so.0:Tss2_RC_Decode
 libtss2-rc.so.0:Tss2_RC_SetHandler
+libtss2-sys.so.1:Tss2_Sys_ACT_SetTimeout
+libtss2-sys.so.1:Tss2_Sys_ACT_SetTimeout_Complete
+libtss2-sys.so.1:Tss2_Sys_ACT_SetTimeout_Prepare
 libtss2-sys.so.1:Tss2_Sys_AC_GetCapability
 libtss2-sys.so.1:Tss2_Sys_AC_GetCapability_Complete
 libtss2-sys.so.1:Tss2_Sys_AC_GetCapability_Prepare
@@ -770,6 +787,9 @@ libtss2-sys.so.1:Tss2_Sys_Certify
 libtss2-sys.so.1:Tss2_Sys_CertifyCreation
 libtss2-sys.so.1:Tss2_Sys_CertifyCreation_Complete
 libtss2-sys.so.1:Tss2_Sys_CertifyCreation_Prepare
+libtss2-sys.so.1:Tss2_Sys_CertifyX509
+libtss2-sys.so.1:Tss2_Sys_CertifyX509_Complete
+libtss2-sys.so.1:Tss2_Sys_CertifyX509_Prepare
 libtss2-sys.so.1:Tss2_Sys_Certify_Complete
 libtss2-sys.so.1:Tss2_Sys_Certify_Prepare
 libtss2-sys.so.1:Tss2_Sys_ChangeEPS
@@ -1128,6 +1148,8 @@ libtss2-tcti-device.so.0:Tss2_Tcti_Info
 libtss2-tcti-mssim.so.0:Tss2_Tcti_Info
 libtss2-tcti-mssim.so.0:Tss2_Tcti_Mssim_Init
 libtss2-tcti-mssim.so.0:tcti_platform_command
+libtss2-tcti-pcap.so.0:Tss2_Tcti_Info
+libtss2-tcti-pcap.so.0:Tss2_Tcti_Pcap_Init
 libtss2-tcti-swtpm.so.0:Tss2_Tcti_Info
 libtss2-tcti-swtpm.so.0:Tss2_Tcti_Swtpm_Init
 libtss2-tcti-swtpm.so.0:Tss2_Tcti_Swtpm_Reset

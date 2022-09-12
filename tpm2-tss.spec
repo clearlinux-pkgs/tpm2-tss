@@ -6,7 +6,7 @@
 #
 Name     : tpm2-tss
 Version  : 3.2.0
-Release  : 15
+Release  : 16
 URL      : https://github.com/tpm2-software/tpm2-tss/releases/download/3.2.0/tpm2-tss-3.2.0.tar.gz
 Source0  : https://github.com/tpm2-software/tpm2-tss/releases/download/3.2.0/tpm2-tss-3.2.0.tar.gz
 Source1  : https://github.com/tpm2-software/tpm2-tss/releases/download/3.2.0/tpm2-tss-3.2.0.tar.gz.asc

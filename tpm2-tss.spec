@@ -6,7 +6,7 @@
 #
 Name     : tpm2-tss
 Version  : 3.2.0
-Release  : 16
+Release  : 17
 URL      : https://github.com/tpm2-software/tpm2-tss/releases/download/3.2.0/tpm2-tss-3.2.0.tar.gz
 Source0  : https://github.com/tpm2-software/tpm2-tss/releases/download/3.2.0/tpm2-tss-3.2.0.tar.gz
 Source1  : https://github.com/tpm2-software/tpm2-tss/releases/download/3.2.0/tpm2-tss-3.2.0.tar.gz.asc
@@ -20,9 +20,18 @@ Requires: tpm2-tss-man = %{version}-%{release}
 BuildRequires : acl-bin
 BuildRequires : autoconf-archive-dev
 BuildRequires : doxygen
+BuildRequires : gcc-dev32
+BuildRequires : gcc-libgcc32
+BuildRequires : gcc-libstdc++32
+BuildRequires : glibc-dev32
+BuildRequires : glibc-libc32
 BuildRequires : libgcrypt-dev
 BuildRequires : libgpg-error-dev
 BuildRequires : perl
+BuildRequires : pkg-config
+BuildRequires : pkgconfig(32json-c)
+BuildRequires : pkgconfig(32libcrypto)
+BuildRequires : pkgconfig(32libcurl)
 BuildRequires : pkgconfig(cmocka)
 BuildRequires : pkgconfig(json-c)
 BuildRequires : pkgconfig(libcrypto)
@@ -61,6 +70,16 @@ Requires: tpm2-tss = %{version}-%{release}
 dev components for the tpm2-tss package.
 
 
+%package dev32
+Summary: dev32 components for the tpm2-tss package.
+Group: Default
+Requires: tpm2-tss-lib32 = %{version}-%{release}
+Requires: tpm2-tss-dev = %{version}-%{release}
+
+%description dev32
+dev32 components for the tpm2-tss package.
+
+
 %package lib
 Summary: lib components for the tpm2-tss package.
 Group: Libraries
@@ -68,6 +87,15 @@ Requires: tpm2-tss-license = %{version}-%{release}
 
 %description lib
 lib components for the tpm2-tss package.
+
+
+%package lib32
+Summary: lib32 components for the tpm2-tss package.
+Group: Default
+Requires: tpm2-tss-license = %{version}-%{release}
+
+%description lib32
+lib32 components for the tpm2-tss package.
 
 
 %package license
@@ -89,13 +117,16 @@ man components for the tpm2-tss package.
 %prep
 %setup -q -n tpm2-tss-3.2.0
 cd %{_builddir}/tpm2-tss-3.2.0
+pushd ..
+cp -a tpm2-tss-3.2.0 build32
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1647067853
+export SOURCE_DATE_EPOCH=1668707558
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -108,18 +139,45 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 --disable-dependency-tracking
 make  %{?_smp_mflags}
 
+pushd ../build32/
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig:/usr/share/pkgconfig"
+export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
+export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
+export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
+%configure --disable-static --with-udevrulesdir=/usr/lib/udev/rules.d \
+--disable-dependency-tracking   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+make  %{?_smp_mflags}
+popd
 %check
 export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
+cd ../build32;
+make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1647067853
+export SOURCE_DATE_EPOCH=1668707558
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/tpm2-tss
-cp %{_builddir}/tpm2-tss-3.2.0/LICENSE %{buildroot}/usr/share/package-licenses/tpm2-tss/af62924ad3089277c413ea767486f404ac159ce1
+cp %{_builddir}/tpm2-tss-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/tpm2-tss/af62924ad3089277c413ea767486f404ac159ce1 || :
+pushd ../build32/
+%make_install32
+if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
+then
+pushd %{buildroot}/usr/lib32/pkgconfig
+for i in *.pc ; do ln -s $i 32$i ; done
+popd
+fi
+if [ -d %{buildroot}/usr/share/pkgconfig ]
+then
+pushd %{buildroot}/usr/share/pkgconfig
+for i in *.pc ; do ln -s $i 32$i ; done
+popd
+fi
+popd
 %make_install
 
 %files
@@ -329,6 +387,42 @@ cp %{_builddir}/tpm2-tss-3.2.0/LICENSE %{buildroot}/usr/share/package-licenses/t
 /usr/share/man/man3/Tss2_Tcti_Device_Init.3
 /usr/share/man/man3/Tss2_Tcti_Mssim_Init.3
 
+%files dev32
+%defattr(-,root,root,-)
+/usr/lib32/libtss2-esys.so
+/usr/lib32/libtss2-fapi.so
+/usr/lib32/libtss2-mu.so
+/usr/lib32/libtss2-rc.so
+/usr/lib32/libtss2-sys.so
+/usr/lib32/libtss2-tcti-cmd.so
+/usr/lib32/libtss2-tcti-device.so
+/usr/lib32/libtss2-tcti-mssim.so
+/usr/lib32/libtss2-tcti-pcap.so
+/usr/lib32/libtss2-tcti-swtpm.so
+/usr/lib32/libtss2-tctildr.so
+/usr/lib32/pkgconfig/32tss2-esys.pc
+/usr/lib32/pkgconfig/32tss2-fapi.pc
+/usr/lib32/pkgconfig/32tss2-mu.pc
+/usr/lib32/pkgconfig/32tss2-rc.pc
+/usr/lib32/pkgconfig/32tss2-sys.pc
+/usr/lib32/pkgconfig/32tss2-tcti-cmd.pc
+/usr/lib32/pkgconfig/32tss2-tcti-device.pc
+/usr/lib32/pkgconfig/32tss2-tcti-mssim.pc
+/usr/lib32/pkgconfig/32tss2-tcti-pcap.pc
+/usr/lib32/pkgconfig/32tss2-tcti-swtpm.pc
+/usr/lib32/pkgconfig/32tss2-tctildr.pc
+/usr/lib32/pkgconfig/tss2-esys.pc
+/usr/lib32/pkgconfig/tss2-fapi.pc
+/usr/lib32/pkgconfig/tss2-mu.pc
+/usr/lib32/pkgconfig/tss2-rc.pc
+/usr/lib32/pkgconfig/tss2-sys.pc
+/usr/lib32/pkgconfig/tss2-tcti-cmd.pc
+/usr/lib32/pkgconfig/tss2-tcti-device.pc
+/usr/lib32/pkgconfig/tss2-tcti-mssim.pc
+/usr/lib32/pkgconfig/tss2-tcti-pcap.pc
+/usr/lib32/pkgconfig/tss2-tcti-swtpm.pc
+/usr/lib32/pkgconfig/tss2-tctildr.pc
+
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libtss2-esys.so.0
@@ -353,6 +447,31 @@ cp %{_builddir}/tpm2-tss-3.2.0/LICENSE %{buildroot}/usr/share/package-licenses/t
 /usr/lib64/libtss2-tcti-swtpm.so.0.0.0
 /usr/lib64/libtss2-tctildr.so.0
 /usr/lib64/libtss2-tctildr.so.0.0.0
+
+%files lib32
+%defattr(-,root,root,-)
+/usr/lib32/libtss2-esys.so.0
+/usr/lib32/libtss2-esys.so.0.0.0
+/usr/lib32/libtss2-fapi.so.1
+/usr/lib32/libtss2-fapi.so.1.0.0
+/usr/lib32/libtss2-mu.so.0
+/usr/lib32/libtss2-mu.so.0.0.0
+/usr/lib32/libtss2-rc.so.0
+/usr/lib32/libtss2-rc.so.0.0.0
+/usr/lib32/libtss2-sys.so.1
+/usr/lib32/libtss2-sys.so.1.0.0
+/usr/lib32/libtss2-tcti-cmd.so.0
+/usr/lib32/libtss2-tcti-cmd.so.0.0.0
+/usr/lib32/libtss2-tcti-device.so.0
+/usr/lib32/libtss2-tcti-device.so.0.0.0
+/usr/lib32/libtss2-tcti-mssim.so.0
+/usr/lib32/libtss2-tcti-mssim.so.0.0.0
+/usr/lib32/libtss2-tcti-pcap.so.0
+/usr/lib32/libtss2-tcti-pcap.so.0.0.0
+/usr/lib32/libtss2-tcti-swtpm.so.0
+/usr/lib32/libtss2-tcti-swtpm.so.0.0.0
+/usr/lib32/libtss2-tctildr.so.0
+/usr/lib32/libtss2-tctildr.so.0.0.0
 
 %files license
 %defattr(0644,root,root,0755)

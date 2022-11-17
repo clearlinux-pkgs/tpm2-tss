@@ -1,11 +1,24 @@
 Configure miss: Valgrind tool sgcheck
+Configure miss: Valgrind tool sgcheck
+Configure miss: addgroup
 Configure miss: addgroup
 Configure miss: adduser
+Configure miss: adduser
 Configure miss: dld_link in -ldld
+Configure miss: dld_link in -ldld
+Configure miss: i686-generic-linux-gnu-doxygen
+Configure miss: i686-generic-linux-gnu-perl
+Configure miss: libtpms/tpm_library.h
 Configure miss: libtpms/tpm_library.h
 Configure miss: libtpms/tpm_library.h presence
+Configure miss: libtpms/tpm_library.h presence
+Configure miss: libtpms/tpm_library.h usability
 Configure miss: libtpms/tpm_library.h usability
 Configure miss: systemd-sysusers
+Configure miss: systemd-sysusers
+Configure miss: systemd-tmpfiles
 Configure miss: systemd-tmpfiles
 Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS
+Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS
+Configure miss: whether to enable debugging
 Configure miss: whether to enable debugging

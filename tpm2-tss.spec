@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x6DE2E9078E1F50C1 (william.c.roberts@intel.com)
 #
 Name     : tpm2-tss
-Version  : 3.2.1
-Release  : 18
-URL      : https://github.com/tpm2-software/tpm2-tss/releases/download/3.2.1/tpm2-tss-3.2.1.tar.gz
-Source0  : https://github.com/tpm2-software/tpm2-tss/releases/download/3.2.1/tpm2-tss-3.2.1.tar.gz
-Source1  : https://github.com/tpm2-software/tpm2-tss/releases/download/3.2.1/tpm2-tss-3.2.1.tar.gz.asc
+Version  : 4.0.0
+Release  : 19
+URL      : https://github.com/tpm2-software/tpm2-tss/releases/download/4.0.0/tpm2-tss-4.0.0.tar.gz
+Source0  : https://github.com/tpm2-software/tpm2-tss/releases/download/4.0.0/tpm2-tss-4.0.0.tar.gz
+Source1  : https://github.com/tpm2-software/tpm2-tss/releases/download/4.0.0/tpm2-tss-4.0.0.tar.gz.asc
 Summary  : TPM2 System API library.
 Group    : Development/Tools
 License  : BSD-2-Clause
@@ -32,11 +32,16 @@ BuildRequires : pkg-config
 BuildRequires : pkgconfig(32json-c)
 BuildRequires : pkgconfig(32libcrypto)
 BuildRequires : pkgconfig(32libcurl)
+BuildRequires : pkgconfig(32uuid)
 BuildRequires : pkgconfig(cmocka)
 BuildRequires : pkgconfig(json-c)
 BuildRequires : pkgconfig(libcrypto)
 BuildRequires : pkgconfig(libcurl)
+BuildRequires : pkgconfig(uuid)
 BuildRequires : valgrind
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 
 %description
 [![Build Status](https://github.com/tpm2-software/tpm2-tss/workflows/CI/badge.svg)](https://github.com/tpm2-software/tpm2-tss/actions)
@@ -115,10 +120,10 @@ man components for the tpm2-tss package.
 
 
 %prep
-%setup -q -n tpm2-tss-3.2.1
-cd %{_builddir}/tpm2-tss-3.2.1
+%setup -q -n tpm2-tss-4.0.0
+cd %{_builddir}/tpm2-tss-4.0.0
 pushd ..
-cp -a tpm2-tss-3.2.1 build32
+cp -a tpm2-tss-4.0.0 build32
 popd
 
 %build
@@ -126,15 +131,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1670951257
+export SOURCE_DATE_EPOCH=1672695551
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
 %configure --disable-static --with-udevrulesdir=/usr/lib/udev/rules.d \
 --disable-dependency-tracking
 make  %{?_smp_mflags}
@@ -159,7 +164,7 @@ cd ../build32;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1670951257
+export SOURCE_DATE_EPOCH=1672695551
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/tpm2-tss
 cp %{_builddir}/tpm2-tss-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/tpm2-tss/af62924ad3089277c413ea767486f404ac159ce1 || :
@@ -193,6 +198,7 @@ popd
 /usr/include/tss2/tss2_esys.h
 /usr/include/tss2/tss2_fapi.h
 /usr/include/tss2/tss2_mu.h
+/usr/include/tss2/tss2_policy.h
 /usr/include/tss2/tss2_rc.h
 /usr/include/tss2/tss2_sys.h
 /usr/include/tss2/tss2_tcti.h
@@ -200,29 +206,34 @@ popd
 /usr/include/tss2/tss2_tcti_device.h
 /usr/include/tss2/tss2_tcti_mssim.h
 /usr/include/tss2/tss2_tcti_pcap.h
+/usr/include/tss2/tss2_tcti_spi_helper.h
 /usr/include/tss2/tss2_tcti_swtpm.h
 /usr/include/tss2/tss2_tctildr.h
 /usr/include/tss2/tss2_tpm2_types.h
 /usr/lib64/libtss2-esys.so
 /usr/lib64/libtss2-fapi.so
 /usr/lib64/libtss2-mu.so
+/usr/lib64/libtss2-policy.so
 /usr/lib64/libtss2-rc.so
 /usr/lib64/libtss2-sys.so
 /usr/lib64/libtss2-tcti-cmd.so
 /usr/lib64/libtss2-tcti-device.so
 /usr/lib64/libtss2-tcti-mssim.so
 /usr/lib64/libtss2-tcti-pcap.so
+/usr/lib64/libtss2-tcti-spi-helper.so
 /usr/lib64/libtss2-tcti-swtpm.so
 /usr/lib64/libtss2-tctildr.so
 /usr/lib64/pkgconfig/tss2-esys.pc
 /usr/lib64/pkgconfig/tss2-fapi.pc
 /usr/lib64/pkgconfig/tss2-mu.pc
+/usr/lib64/pkgconfig/tss2-policy.pc
 /usr/lib64/pkgconfig/tss2-rc.pc
 /usr/lib64/pkgconfig/tss2-sys.pc
 /usr/lib64/pkgconfig/tss2-tcti-cmd.pc
 /usr/lib64/pkgconfig/tss2-tcti-device.pc
 /usr/lib64/pkgconfig/tss2-tcti-mssim.pc
 /usr/lib64/pkgconfig/tss2-tcti-pcap.pc
+/usr/lib64/pkgconfig/tss2-tcti-spi-helper.pc
 /usr/lib64/pkgconfig/tss2-tcti-swtpm.pc
 /usr/lib64/pkgconfig/tss2-tctildr.pc
 /usr/share/man/man3/ESYS_CONTEXT.3
@@ -392,49 +403,57 @@ popd
 /usr/lib32/libtss2-esys.so
 /usr/lib32/libtss2-fapi.so
 /usr/lib32/libtss2-mu.so
+/usr/lib32/libtss2-policy.so
 /usr/lib32/libtss2-rc.so
 /usr/lib32/libtss2-sys.so
 /usr/lib32/libtss2-tcti-cmd.so
 /usr/lib32/libtss2-tcti-device.so
 /usr/lib32/libtss2-tcti-mssim.so
 /usr/lib32/libtss2-tcti-pcap.so
+/usr/lib32/libtss2-tcti-spi-helper.so
 /usr/lib32/libtss2-tcti-swtpm.so
 /usr/lib32/libtss2-tctildr.so
 /usr/lib32/pkgconfig/32tss2-esys.pc
 /usr/lib32/pkgconfig/32tss2-fapi.pc
 /usr/lib32/pkgconfig/32tss2-mu.pc
+/usr/lib32/pkgconfig/32tss2-policy.pc
 /usr/lib32/pkgconfig/32tss2-rc.pc
 /usr/lib32/pkgconfig/32tss2-sys.pc
 /usr/lib32/pkgconfig/32tss2-tcti-cmd.pc
 /usr/lib32/pkgconfig/32tss2-tcti-device.pc
 /usr/lib32/pkgconfig/32tss2-tcti-mssim.pc
 /usr/lib32/pkgconfig/32tss2-tcti-pcap.pc
+/usr/lib32/pkgconfig/32tss2-tcti-spi-helper.pc
 /usr/lib32/pkgconfig/32tss2-tcti-swtpm.pc
 /usr/lib32/pkgconfig/32tss2-tctildr.pc
 /usr/lib32/pkgconfig/tss2-esys.pc
 /usr/lib32/pkgconfig/tss2-fapi.pc
 /usr/lib32/pkgconfig/tss2-mu.pc
+/usr/lib32/pkgconfig/tss2-policy.pc
 /usr/lib32/pkgconfig/tss2-rc.pc
 /usr/lib32/pkgconfig/tss2-sys.pc
 /usr/lib32/pkgconfig/tss2-tcti-cmd.pc
 /usr/lib32/pkgconfig/tss2-tcti-device.pc
 /usr/lib32/pkgconfig/tss2-tcti-mssim.pc
 /usr/lib32/pkgconfig/tss2-tcti-pcap.pc
+/usr/lib32/pkgconfig/tss2-tcti-spi-helper.pc
 /usr/lib32/pkgconfig/tss2-tcti-swtpm.pc
 /usr/lib32/pkgconfig/tss2-tctildr.pc
 
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libtss2-esys.so.0
-/usr/lib64/libtss2-esys.so.0.0.0
+/usr/lib64/libtss2-esys.so.0.0.1
 /usr/lib64/libtss2-fapi.so.1
 /usr/lib64/libtss2-fapi.so.1.0.0
 /usr/lib64/libtss2-mu.so.0
-/usr/lib64/libtss2-mu.so.0.0.0
+/usr/lib64/libtss2-mu.so.0.0.1
+/usr/lib64/libtss2-policy.so.0
+/usr/lib64/libtss2-policy.so.0.0.0
 /usr/lib64/libtss2-rc.so.0
 /usr/lib64/libtss2-rc.so.0.0.0
 /usr/lib64/libtss2-sys.so.1
-/usr/lib64/libtss2-sys.so.1.0.0
+/usr/lib64/libtss2-sys.so.1.0.1
 /usr/lib64/libtss2-tcti-cmd.so.0
 /usr/lib64/libtss2-tcti-cmd.so.0.0.0
 /usr/lib64/libtss2-tcti-device.so.0
@@ -443,6 +462,8 @@ popd
 /usr/lib64/libtss2-tcti-mssim.so.0.0.0
 /usr/lib64/libtss2-tcti-pcap.so.0
 /usr/lib64/libtss2-tcti-pcap.so.0.0.0
+/usr/lib64/libtss2-tcti-spi-helper.so.0
+/usr/lib64/libtss2-tcti-spi-helper.so.0.0.0
 /usr/lib64/libtss2-tcti-swtpm.so.0
 /usr/lib64/libtss2-tcti-swtpm.so.0.0.0
 /usr/lib64/libtss2-tctildr.so.0
@@ -451,15 +472,17 @@ popd
 %files lib32
 %defattr(-,root,root,-)
 /usr/lib32/libtss2-esys.so.0
-/usr/lib32/libtss2-esys.so.0.0.0
+/usr/lib32/libtss2-esys.so.0.0.1
 /usr/lib32/libtss2-fapi.so.1
 /usr/lib32/libtss2-fapi.so.1.0.0
 /usr/lib32/libtss2-mu.so.0
-/usr/lib32/libtss2-mu.so.0.0.0
+/usr/lib32/libtss2-mu.so.0.0.1
+/usr/lib32/libtss2-policy.so.0
+/usr/lib32/libtss2-policy.so.0.0.0
 /usr/lib32/libtss2-rc.so.0
 /usr/lib32/libtss2-rc.so.0.0.0
 /usr/lib32/libtss2-sys.so.1
-/usr/lib32/libtss2-sys.so.1.0.0
+/usr/lib32/libtss2-sys.so.1.0.1
 /usr/lib32/libtss2-tcti-cmd.so.0
 /usr/lib32/libtss2-tcti-cmd.so.0.0.0
 /usr/lib32/libtss2-tcti-device.so.0
@@ -468,6 +491,8 @@ popd
 /usr/lib32/libtss2-tcti-mssim.so.0.0.0
 /usr/lib32/libtss2-tcti-pcap.so.0
 /usr/lib32/libtss2-tcti-pcap.so.0.0.0
+/usr/lib32/libtss2-tcti-spi-helper.so.0
+/usr/lib32/libtss2-tcti-spi-helper.so.0.0.0
 /usr/lib32/libtss2-tcti-swtpm.so.0
 /usr/lib32/libtss2-tcti-swtpm.so.0.0.0
 /usr/lib32/libtss2-tctildr.so.0

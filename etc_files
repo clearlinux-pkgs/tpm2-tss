@@ -1,0 +1,18 @@
+/etc/:
+/etc/sysusers.d:
+/etc/tmpfiles.d:
+/etc/tpm2-tss/fapi-profiles:
+/etc/tpm2-tss:
+P_ECCP256SHA256.json
+P_ECCP384SHA384.json
+P_RSA2048SHA256.json
+P_RSA3072SHA384.json
+fapi-config.json
+fapi-profiles
+sysusers.d
+tmpfiles.d
+tmpfiles.d
+tpm2-tss
+tpm2-tss' ']'
+tpm2-tss-fapi.conf
+tpm2-tss.conf

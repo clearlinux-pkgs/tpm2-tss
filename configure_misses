@@ -1,24 +1,29 @@
 Configure miss: Valgrind tool sgcheck
 Configure miss: Valgrind tool sgcheck
-Configure miss: addgroup
-Configure miss: addgroup
-Configure miss: adduser
-Configure miss: adduser
+Configure miss: Valgrind tool sgcheck
 Configure miss: dld_link in -ldld
 Configure miss: dld_link in -ldld
+Configure miss: dld_link in -ldld
+Configure miss: g++ option to enable C++11 features
+Configure miss: g++ option to enable C++11 features
+Configure miss: g++ option to enable C++11 features
+Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: gcc options needed to detect all undeclared functions
 Configure miss: i686-generic-linux-gnu-doxygen
 Configure miss: i686-generic-linux-gnu-perl
+Configure miss: libftdi
+Configure miss: libftdi
+Configure miss: libftdi
+Configure miss: libftdi1
+Configure miss: libftdi1
+Configure miss: libftdi1
 Configure miss: libtpms/tpm_library.h
 Configure miss: libtpms/tpm_library.h
-Configure miss: libtpms/tpm_library.h presence
-Configure miss: libtpms/tpm_library.h presence
-Configure miss: libtpms/tpm_library.h usability
-Configure miss: libtpms/tpm_library.h usability
-Configure miss: systemd-sysusers
-Configure miss: systemd-sysusers
-Configure miss: systemd-tmpfiles
-Configure miss: systemd-tmpfiles
+Configure miss: libtpms/tpm_library.h
 Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS
 Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS
+Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS
+Configure miss: whether to enable debugging
 Configure miss: whether to enable debugging
 Configure miss: whether to enable debugging

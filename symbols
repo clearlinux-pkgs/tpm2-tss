@@ -1178,6 +1178,8 @@ libtss2-tcti-cmd.so.0:Tss2_Tcti_Cmd_Init
 libtss2-tcti-cmd.so.0:Tss2_Tcti_Info
 libtss2-tcti-device.so.0:Tss2_Tcti_Device_Init
 libtss2-tcti-device.so.0:Tss2_Tcti_Info
+libtss2-tcti-i2c-helper.so.0:Tss2_Tcti_I2c_Helper_Init
+libtss2-tcti-i2c-helper.so.0:Tss2_Tcti_Info
 libtss2-tcti-mssim.so.0:Tss2_Tcti_Info
 libtss2-tcti-mssim.so.0:Tss2_Tcti_Mssim_Init
 libtss2-tcti-mssim.so.0:tcti_platform_command
@@ -1185,6 +1187,10 @@ libtss2-tcti-pcap.so.0:Tss2_Tcti_Info
 libtss2-tcti-pcap.so.0:Tss2_Tcti_Pcap_Init
 libtss2-tcti-spi-helper.so.0:Tss2_Tcti_Info
 libtss2-tcti-spi-helper.so.0:Tss2_Tcti_Spi_Helper_Init
+libtss2-tcti-spi-ltt2go.so.0:Tss2_Tcti_Info
+libtss2-tcti-spi-ltt2go.so.0:Tss2_Tcti_Spi_Ltt2go_Init
+libtss2-tcti-spidev.so.0:Tss2_Tcti_Info
+libtss2-tcti-spidev.so.0:Tss2_Tcti_Spidev_Init
 libtss2-tcti-swtpm.so.0:Tss2_Tcti_Info
 libtss2-tcti-swtpm.so.0:Tss2_Tcti_Swtpm_Init
 libtss2-tcti-swtpm.so.0:Tss2_Tcti_Swtpm_Reset
@@ -1193,3 +1199,5 @@ libtss2-tctildr.so.0:Tss2_TctiLdr_FreeInfo
 libtss2-tctildr.so.0:Tss2_TctiLdr_GetInfo
 libtss2-tctildr.so.0:Tss2_TctiLdr_Initialize
 libtss2-tctildr.so.0:Tss2_TctiLdr_Initialize_Ex
+libtss2-tctildr.so.0:Tss2_Tcti_Info
+libtss2-tctildr.so.0:Tss2_Tcti_TctiLdr_Init

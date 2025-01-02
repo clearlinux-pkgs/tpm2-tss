@@ -1,3 +1,4 @@
-tpm2-tss-4.1.3.tar.gz verification failed Public key 8F4F9A45D7FFEE74 not found
-tpm2-tss-4.1.3.tar.gz verification failed Public key 8F4F9A45D7FFEE74 not found
-Verification required for build (verify_required option set)
+Public key has changed:
+            old key: 6DE2E9078E1F50C1
+            new key: 8F4F9A45D7FFEE74
+this is a critical security error, quitting...

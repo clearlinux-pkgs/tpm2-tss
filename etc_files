@@ -11,8 +11,6 @@ fapi-config.json
 fapi-profiles
 sysusers.d
 tmpfiles.d
-tmpfiles.d
 tpm2-tss
-tpm2-tss' ']'
 tpm2-tss-fapi.conf
 tpm2-tss.conf
